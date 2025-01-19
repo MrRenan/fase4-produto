@@ -13,3 +13,10 @@ banco de dados. <p>
 • Spring Batch para implementar a funcionalidade de carga de produtos,
 automatizando a importação de dados de produtos de fontes externas,
 como arquivos CSV.
+
+# Funcionalidade de carga de produtos
+
+Descrição funcional: esta funcionalidade específica permitirá a
+importação em massa de dados de produtos, incluindo descrições, preços e
+quantidades em estoque. A importação poderá ser agendada ou iniciada
+manualmente, garantindo que o catálogo de produtos esteja sempre atualizado.
