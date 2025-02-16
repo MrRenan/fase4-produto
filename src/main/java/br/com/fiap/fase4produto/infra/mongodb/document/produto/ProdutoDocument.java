@@ -1,4 +1,4 @@
-package br.com.fiap.fase4produto.infra.mongodb.document.cliente;
+package br.com.fiap.fase4produto.infra.mongodb.document.produto;
 
 import lombok.Builder;
 import org.springframework.data.annotation.Id;

@@ -1,7 +1,7 @@
 package br.com.fiap.fase4produto.features.adapter.out.mapper;
 
 import br.com.fiap.fase4produto.features.domain.entity.Produto;
-import br.com.fiap.fase4produto.infra.mongodb.document.cliente.ProdutoDocument;
+import br.com.fiap.fase4produto.infra.mongodb.document.produto.ProdutoDocument;
 import org.mapstruct.AnnotateWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

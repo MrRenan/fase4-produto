@@ -17,8 +17,8 @@ public interface ProdutoMapper {
 
     ProdutoMapper INSTANCE = Mappers.getMapper(ProdutoMapper.class);
 
-    ProdutoResponse paraClienteResponse(Produto produto);
+    ProdutoResponse paraProdutoResponse(Produto produto);
 
-    Produto paraCliente(ProdutoRequest produtoRequest);
+    Produto paraProduto(ProdutoRequest produtoRequest);
 
 }

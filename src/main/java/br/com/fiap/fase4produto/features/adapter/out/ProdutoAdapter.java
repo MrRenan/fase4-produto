@@ -4,7 +4,7 @@ import br.com.fiap.fase4produto.features.adapter.out.mapper.ProdutoMapper;
 import br.com.fiap.fase4produto.features.domain.entity.Produto;
 import br.com.fiap.fase4produto.features.domain.exception.ProdutoNaoEncontradoException;
 import br.com.fiap.fase4produto.features.port.ProdutoPort;
-import br.com.fiap.fase4produto.infra.mongodb.document.cliente.ProdutoDocument;
+import br.com.fiap.fase4produto.infra.mongodb.document.produto.ProdutoDocument;
 import br.com.fiap.fase4produto.infra.mongodb.repository.ProdutoDBRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,16 +26,16 @@ public class ProdutoAdapter implements ProdutoPort {
     @Override
     public Produto criarProduto(Produto produto) {
 
-        var clienteDocument = mapper.paraProdutoDocument(produto);
-        return mapper.paraProduto(repository.save(clienteDocument));
+        var produtoDocument = mapper.paraProdutoDocument(produto);
+        return mapper.paraProduto(repository.save(produtoDocument));
 
     }
 
     @Override
-    public Produto obterProdutoPorId(String idCliente) {
-        var clienteEntity = repository.findById(idCliente)
+    public Produto obterProdutoPorId(String idProduto) {
+        var produtoEntity = repository.findById(idProduto)
                 .orElseThrow(ProdutoNaoEncontradoException::produtoNaoEncontradoException);
-        return mapper.paraProduto(clienteEntity);
+        return mapper.paraProduto(produtoEntity);
     }
 
     @Override
@@ -47,8 +47,9 @@ public class ProdutoAdapter implements ProdutoPort {
     }
 
     @Override
-    public Produto atualizarProduto(String idCliente, Produto produto) {
-        if(repository.existsById(idCliente)) {
+    public Produto atualizarProduto(String idProduto, Produto produto) {
+        if(repository.existsById(idProduto)) {
+            produto.setId(idProduto);
             ProdutoDocument produtoDocument = repository.save(mapper.paraProdutoDocument(produto));
             return mapper.paraProduto(produtoDocument);
         } else throw produtoNaoEncontradoException();
@@ -56,8 +57,8 @@ public class ProdutoAdapter implements ProdutoPort {
     }
 
     @Override
-    public void deletarProduto(String idCliente) {
-        repository.deleteById(idCliente);
+    public void deletarProduto(String idProduto) {
+        repository.deleteById(idProduto);
     }
 
 }

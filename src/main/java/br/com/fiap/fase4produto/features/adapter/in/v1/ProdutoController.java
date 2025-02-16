@@ -19,31 +19,31 @@ public class ProdutoController implements ProdutoApi {
     private final ProdutoMapper mapper;
 
     @Override
-    public ProdutoResponse obterProdutoPorId(String idCliente) {
-        var cliente = useCase.obterProdutoPorId(idCliente);
-        return mapper.paraClienteResponse(cliente);
+    public ProdutoResponse obterProdutoPorId(String idProduto) {
+        var produto = useCase.obterProdutoPorId(idProduto);
+        return mapper.paraProdutoResponse(produto);
     }
 
     @Override
-    public ProdutoResponse criarProduto(ProdutoRequest produtoRequest) {
-        var cliente = useCase.criarProduto(mapper.paraCliente(produtoRequest));
-        return mapper.paraClienteResponse(cliente);
+    public ProdutoResponse criarProduto(ProdutoRequest produto) {
+        var produtoEntity = useCase.criarProduto(mapper.paraProduto(produto));
+        return mapper.paraProdutoResponse(produtoEntity);
     }
 
     @Override
     public List<ProdutoResponse> obterTodosProdutos() {
         var produtoList =  useCase.obterTodosProdutos();
-        return produtoList.stream().map(mapper::paraClienteResponse).collect(Collectors.toList());
+        return produtoList.stream().map(mapper::paraProdutoResponse).collect(Collectors.toList());
     }
 
     @Override
-    public ProdutoResponse atualizarProduto(String idCliente, ProdutoRequest produtoRequest) {
-        var cliente = useCase.atualizarProduto(idCliente, mapper.paraCliente(produtoRequest));
-        return mapper.paraClienteResponse(cliente);
+    public ProdutoResponse atualizarProduto(String idProduto, ProdutoRequest produto) {
+        var produtoEntity = useCase.atualizarProduto(idProduto, mapper.paraProduto(produto));
+        return mapper.paraProdutoResponse(produtoEntity);
     }
 
     @Override
-    public void deletarProduto(String idCliente) {
-        useCase.deletarProduto(idCliente);
+    public void deletarProduto(String idProduto) {
+        useCase.deletarProduto(idProduto);
     }
 }

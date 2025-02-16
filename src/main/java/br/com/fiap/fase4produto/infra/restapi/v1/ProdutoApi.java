@@ -17,7 +17,7 @@ public interface ProdutoApi {
     @Operation(summary = "Criar produto.")
     @PostMapping
     @ResponseStatus(CREATED)
-    ProdutoResponse criarProduto(@RequestBody ProdutoRequest cliente);
+    ProdutoResponse criarProduto(@RequestBody ProdutoRequest produto);
 
     @Operation(summary = "Obter produto por id")
     @GetMapping("/{idProduto}")
@@ -32,7 +32,7 @@ public interface ProdutoApi {
     @Operation(summary = "Atualizar um produto por id.")
     @PutMapping("/{idProduto}")
     @ResponseStatus(OK)
-    ProdutoResponse atualizarProduto(@PathVariable("idProduto") String idProduto, @RequestBody ProdutoRequest cliente);
+    ProdutoResponse atualizarProduto(@PathVariable("idProduto") String idProduto, @RequestBody ProdutoRequest produto);
 
     @Operation(summary = "Deletar um produto por id")
     @DeleteMapping("/{idProduto}")
