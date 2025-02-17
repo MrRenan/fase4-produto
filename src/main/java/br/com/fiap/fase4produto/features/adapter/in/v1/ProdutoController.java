@@ -19,15 +19,15 @@ public class ProdutoController implements ProdutoApi {
     private final ProdutoMapper mapper;
 
     @Override
-    public ProdutoResponse obterProdutoPorId(String idProduto) {
-        var produto = useCase.obterProdutoPorId(idProduto);
-        return mapper.paraProdutoResponse(produto);
-    }
-
-    @Override
     public ProdutoResponse criarProduto(ProdutoRequest produto) {
         var produtoEntity = useCase.criarProduto(mapper.paraProduto(produto));
         return mapper.paraProdutoResponse(produtoEntity);
+    }
+
+    @Override
+    public ProdutoResponse obterProdutoPorId(String idProduto) {
+        var produto = useCase.obterProdutoPorId(idProduto);
+        return mapper.paraProdutoResponse(produto);
     }
 
     @Override
