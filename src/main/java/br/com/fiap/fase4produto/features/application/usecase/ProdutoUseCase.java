@@ -1,5 +1,6 @@
 package br.com.fiap.fase4produto.features.application.usecase;
 
+import br.com.fiap.fase4produto.features.domain.entity.Estoque;
 import br.com.fiap.fase4produto.features.domain.entity.Produto;
 import br.com.fiap.fase4produto.features.domain.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,9 @@ public class ProdutoUseCase {
 
     public void deletarProduto(String idProdduto) {
         service.deletarProduto(idProdduto);
+    }
+
+    public List<Produto> atualizarEstoque(Estoque estoque) {
+        return service.atualizarEstoque(estoque);
     }
 }

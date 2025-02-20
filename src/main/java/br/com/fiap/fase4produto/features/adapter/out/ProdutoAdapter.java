@@ -1,7 +1,9 @@
 package br.com.fiap.fase4produto.features.adapter.out;
 
 import br.com.fiap.fase4produto.features.adapter.out.mapper.ProdutoMapper;
+import br.com.fiap.fase4produto.features.domain.entity.Estoque;
 import br.com.fiap.fase4produto.features.domain.entity.Produto;
+import br.com.fiap.fase4produto.features.domain.exception.EstoqueInsuficienteException;
 import br.com.fiap.fase4produto.features.domain.exception.ProdutoNaoEncontradoException;
 import br.com.fiap.fase4produto.features.port.ProdutoPort;
 import br.com.fiap.fase4produto.infra.mongodb.document.produto.ProdutoDocument;
@@ -10,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-
-import static br.com.fiap.fase4produto.features.domain.exception.ProdutoNaoEncontradoException.produtoNaoEncontradoException;
 import static java.util.stream.Collectors.toList;
 
 @Component
@@ -34,7 +34,7 @@ public class ProdutoAdapter implements ProdutoPort {
     @Override
     public Produto obterProdutoPorId(String idProduto) {
         var produtoEntity = repository.findById(idProduto)
-                .orElseThrow(ProdutoNaoEncontradoException::produtoNaoEncontradoException);
+                .orElseThrow(() -> new ProdutoNaoEncontradoException("Produto não encontrado."));
         return mapper.paraProduto(produtoEntity);
     }
 
@@ -52,13 +52,30 @@ public class ProdutoAdapter implements ProdutoPort {
             produto.setId(idProduto);
             ProdutoDocument produtoDocument = repository.save(mapper.paraProdutoDocument(produto));
             return mapper.paraProduto(produtoDocument);
-        } else throw produtoNaoEncontradoException();
+        } else throw new ProdutoNaoEncontradoException("Produto não encontrado");
 
     }
 
     @Override
     public void deletarProduto(String idProduto) {
         repository.deleteById(idProduto);
+    }
+
+    @Override
+    public List<Produto> atualizarEstoque(Estoque estoque) {
+        return estoque.getProdutos()
+                .stream()
+                .map(produtoEstoque -> {
+                    ProdutoDocument produtoDocument = repository.findById(produtoEstoque.getProdutoId())
+                            .orElseThrow(() -> new ProdutoNaoEncontradoException("Produto não encontrado."));
+                    int estoqueAtualizado = produtoDocument.quantidade() - produtoEstoque.getQuantidade();
+                    if(estoqueAtualizado < 0) {
+                        throw new EstoqueInsuficienteException("Estoque insuficinte.");
+                    }
+                    ProdutoDocument produtoComEstoqueAtualizado = mapper.atualizarEstoque(produtoDocument, estoqueAtualizado);
+                    return repository.save(produtoComEstoqueAtualizado);
+                }).map(mapper::paraProduto)
+                .toList();
     }
 
 }

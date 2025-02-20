@@ -1,5 +1,6 @@
 package br.com.fiap.fase4produto.infra.restapi.v1;
 
+import br.com.fiap.fase4produto.infra.restapi.v1.model.EstoqueRequest;
 import br.com.fiap.fase4produto.infra.restapi.v1.model.ProdutoRequest;
 import br.com.fiap.fase4produto.infra.restapi.v1.model.ProdutoResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,5 +39,10 @@ public interface ProdutoApi {
     @DeleteMapping("/{idProduto}")
     @ResponseStatus(NO_CONTENT)
     void deletarProduto(@PathVariable("idProduto") String idProduto);
+
+    @Operation(summary = "Atualizar o estoque")
+    @PutMapping("/estoque")
+    @ResponseStatus(NO_CONTENT)
+    List<ProdutoResponse> atualizarEstoque(@RequestBody EstoqueRequest estoqueRequest );
 
 }

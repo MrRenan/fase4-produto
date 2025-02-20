@@ -4,6 +4,7 @@ import br.com.fiap.fase4produto.features.domain.entity.Produto;
 import br.com.fiap.fase4produto.infra.mongodb.document.produto.ProdutoDocument;
 import org.mapstruct.AnnotateWith;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
@@ -19,4 +20,7 @@ public interface ProdutoMapper {
     Produto paraProduto(ProdutoDocument produtoDocument);
 
     ProdutoDocument paraProdutoDocument(Produto produto);
+
+    @Mapping(source = "estoqueAtualizado", target = "quantidade")
+    ProdutoDocument atualizarEstoque(ProdutoDocument produtoDocument, int estoqueAtualizado);
 }

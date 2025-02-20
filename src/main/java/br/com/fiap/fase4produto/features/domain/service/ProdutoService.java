@@ -1,6 +1,7 @@
 package br.com.fiap.fase4produto.features.domain.service;
 
 import br.com.fiap.fase4produto.features.adapter.out.ProdutoAdapter;
+import br.com.fiap.fase4produto.features.domain.entity.Estoque;
 import br.com.fiap.fase4produto.features.domain.entity.Produto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,9 @@ public class ProdutoService {
 
     public void deletarProduto(String idProduto) {
         adapter.deletarProduto(idProduto);
+    }
+
+    public List<Produto> atualizarEstoque(Estoque estoque) {
+        return adapter.atualizarEstoque(estoque);
     }
 }

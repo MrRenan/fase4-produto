@@ -1,6 +1,9 @@
 package br.com.fiap.fase4produto.features.adapter.in.v1.mapper;
 
+import br.com.fiap.fase4produto.features.domain.entity.Estoque;
 import br.com.fiap.fase4produto.features.domain.entity.Produto;
+import br.com.fiap.fase4produto.features.domain.entity.ProdutoEstoque;
+import br.com.fiap.fase4produto.infra.restapi.v1.model.EstoqueRequest;
 import br.com.fiap.fase4produto.infra.restapi.v1.model.ProdutoRequest;
 import br.com.fiap.fase4produto.infra.restapi.v1.model.ProdutoResponse;
 import org.mapstruct.AnnotateWith;
@@ -20,5 +23,9 @@ public interface ProdutoMapper {
     ProdutoResponse paraProdutoResponse(Produto produto);
 
     Produto paraProduto(ProdutoRequest produtoRequest);
+
+    Estoque paraEstoque(EstoqueRequest estoqueRequest);
+
+    ProdutoEstoque paraProdutoEstoque(EstoqueRequest.ProdutoEstoqueRequest produtoEstoqueRequest);
 
 }
