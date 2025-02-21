@@ -7,7 +7,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD:
       MONGO_INITDB_DATABASE: fase4produto
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - mongodb_data:/data/db
     networks:
@@ -24,6 +24,24 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  fase4-produto:
+    image: fase4-produto:latest
+    container_name: fase4-produto-app
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/fase4produto
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/produtobatchmetadata
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 102030
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+    depends_on:
+      - postgres
+      - mongodb
     networks:
       - app_network
 
